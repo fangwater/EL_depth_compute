@@ -147,7 +147,6 @@ public:
                 level->vol = level->price * level->quantity;
             }
         } else {
-            //执行卖单，同样迭代
             while(!bid_side.empty() && quantity > 0 && best_bid() >= price){
                 PriceLevel* bid_level = &(*bid_side.rbegin());
                 if (bid_level->quantity <= quantity) {
@@ -284,24 +283,24 @@ int main() {
         std::cout << "Price: " << level.first << ", Quantity: " << level.second << std::endl;
     }
 
-    // //增加一个可能和ask成交的单子  
-    // book.order_add(113, 9, true);  // 删除买单：价格100，数量5
-    // std::cout << "\nAfter deletion:" << std::endl;
-    // std::cout << "Best Bid: " << book.best_bid() << std::endl;
-    // std::cout << "Best Ask: " << book.best_ask() << std::endl;
+    //增加一个可能和ask成交的单子  
+    book.order_add(113, 9, true);  // 删除买单：价格100，数量5
+    std::cout << "\nAfter deletion:" << std::endl;
+    std::cout << "Best Bid: " << book.best_bid() << std::endl;
+    std::cout << "Best Ask: " << book.best_ask() << std::endl;
 
-    // // 计算并显示买单深度
-    // bid_depth = book.cal_depth_bid<3>();
-    // std::cout << "Top 3 Bids:" << std::endl;
-    // for (const auto& level : bid_depth.level_infos) {
-    //     std::cout << "Price: " << level.first << ", Quantity: " << level.second << std::endl;
-    // }
+    // 计算并显示买单深度
+    bid_depth = book.cal_depth_bid<3>();
+    std::cout << "Top 3 Bids:" << std::endl;
+    for (const auto& level : bid_depth.level_infos) {
+        std::cout << "Price: " << level.first << ", Quantity: " << level.second << std::endl;
+    }
 
-    // // 计算并显示卖单深度
-    // ask_depth = book.cal_depth_ask<3>();
-    // std::cout << "Top 3 Asks:" << std::endl;
-    // for (const auto& level : ask_depth.level_infos) {
-    //     std::cout << "Price: " << level.first << ", Quantity: " << level.second << std::endl;
-    // }
+    // 计算并显示卖单深度
+    ask_depth = book.cal_depth_ask<3>();
+    std::cout << "Top 3 Asks:" << std::endl;
+    for (const auto& level : ask_depth.level_infos) {
+        std::cout << "Price: " << level.first << ", Quantity: " << level.second << std::endl;
+    }
     return 0;
 }
